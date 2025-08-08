@@ -38,10 +38,6 @@ Trong file `application.properties` (hoặc `.yml`) của bạn, hãy cung cấp
 # API Key công khai của Project.
 # Bắt buộc cho tất cả các chức năng.
 auth.client.api-key=YOUR_PROJECT_API_KEY_HERE
-
-# API Secret bí mật của Project.
-# Bắt buộc cho các tác vụ quản lý (quản lý EndUser, Role...).
-auth.client.project-secret=YOUR_PROJECT_SECRET_HERE
 ```
 
 ---
