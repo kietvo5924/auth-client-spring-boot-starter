@@ -21,7 +21,7 @@ Thêm dependency sau vào file `pom.xml` trong project Spring Boot của bạn:
 <dependency>
     <groupId>io.github.kietvo5924</groupId>
     <artifactId>auth-client-spring-boot-starter</artifactId>
-    <version>1.0.0</version>
+    <version>2.2.1</version>
 </dependency>
 ```
 
@@ -169,6 +169,33 @@ public class MyApiController {
     @RequiresProjectRole("ADMIN")
     public ResponseEntity<String> getAdminData() {
         return ResponseEntity.ok("Super secret data for admins only.");
+    }
+}
+```
+
+#### **Kiểm tra theo Cấp bậc Tối thiểu (@RequiresProjectLevel)**
+
+Dùng khi bạn muốn phân quyền theo cấp bậc (level), không quan tâm đến tên vai trò. Cách này rất hữu ích để phân cấp quản lý, ví dụ như "chỉ những người dùng có cấp bậc từ Trưởng phòng trở lên mới được xem báo cáo".
+
+Thư viện sẽ tự động kiểm tra token Authorization: Bearer <end_user_token> trong header, gọi đến auth-service để lấy maxRoleLevel của người dùng và so sánh với giá trị bạn đặt trong annotation.
+
+**Ví dụ:**
+```java
+import com.authplatform.client.security.RequiresProjectLevel;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MyManagementController {
+
+    // API này yêu cầu EndUser phải có một vai trò với level từ 500 trở lên.
+    // Owner có thể tạo role "MANAGER" (level 500) hoặc "DIRECTOR" (level 900),
+    // và cả hai đều có thể truy cập API này.
+    @GetMapping("/api/management/report")
+    @RequiresProjectLevel(500)
+    public ResponseEntity<String> getManagementReport() {
+        return ResponseEntity.ok("This is a high-level management report.");
     }
 }
 ```

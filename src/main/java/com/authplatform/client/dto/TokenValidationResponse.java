@@ -7,6 +7,7 @@ public class TokenValidationResponse {
     private String email;
     private String userId;
     private Set<String> roles;
+    private int maxRoleLevel;
 
     public boolean isValid() {
         return valid;
@@ -24,6 +25,10 @@ public class TokenValidationResponse {
         return roles;
     }
 
+    public int getMaxRoleLevel() {
+        return maxRoleLevel;
+    }
+
     public void setValid(boolean valid) {
         this.valid = valid;
     }
@@ -38,5 +43,9 @@ public class TokenValidationResponse {
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+
+    public void setMaxRoleLevel(int maxRoleLevel) {
+        this.maxRoleLevel = maxRoleLevel;
     }
 }
